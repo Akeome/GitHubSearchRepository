@@ -23,8 +23,8 @@ struct SearchResponse<Item: JSONDecodable>: JSONDecodable {
             throw JSONDecodeError.missingValue(key: "total_count", actualValue: dictionary["total_count"])
         }
         
-        guard let itemObject = dictionary["item"] as? [Any] else {
-            throw JSONDecodeError.missingValue(key: "item", actualValue: dictionary["item"])
+        guard let itemObject = dictionary["items"] as? [Any] else {
+            throw JSONDecodeError.missingValue(key: "items", actualValue: dictionary["items"])
         }
         // 型引数に型制約を追加している(<Item: JSONDecodable>)のでItemのイニシャライザが使える
         let items = try itemObject.map({

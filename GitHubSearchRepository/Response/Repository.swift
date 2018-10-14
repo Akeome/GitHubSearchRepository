@@ -30,8 +30,8 @@ struct Repository: JSONDecodable {
         guard let name = dictionary["name"] as? String else {
             throw JSONDecodeError.missingValue(key: "name", actualValue: dictionary["name"])
         }
-        guard let fullName = dictionary["fullName"] as? String else {
-            throw JSONDecodeError.missingValue(key: "fullName", actualValue: dictionary["fullName"])
+        guard let fullName = dictionary["full_name"] as? String else {
+            throw JSONDecodeError.missingValue(key: "full_name", actualValue: dictionary["full_name"])
         }
         // User型を取得したいがあえて as? User とせずAny型を取得
         guard let ownerObject = dictionary["owner"] else {

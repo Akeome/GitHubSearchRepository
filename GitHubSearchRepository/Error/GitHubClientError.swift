@@ -8,7 +8,7 @@
 
 /// APIクライアントで起こりうるエラーの列挙型
 /// 各caseにErrorプロトコルに準拠した連想値を持たせて、詳細なエラーを判別できるようにしている
-enum GitHubClientError {
+enum GitHubClientError: Error {
     // 通信に失敗
     case connectionError(Error)
     // レスポンスの解釈に失敗

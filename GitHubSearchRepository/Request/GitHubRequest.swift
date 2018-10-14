@@ -32,7 +32,7 @@ extension GitHubRequest {
     }
     
     // HTTP通信を行うURLRequestに対応するためのメソッド
-    // GitHubRequestが保持するプロパティを使ってURLRequestを組み立てる
+    // GitHubRequestが保持するプロパティを使って、標準APIのURLRequestを組み立てる
     func buildURLRequest() -> URLRequest {
         // baseURLとpathの統合
         let url = baseURL.appendingPathComponent(path)
@@ -59,4 +59,22 @@ extension GitHubRequest {
         
         return urlRequest
     }
+    
+    
+    // HTTP通信の結果が格納されるData及びHTTPURLResponseに対応するためのメソッド
+    // 標準APIのData及びHTTPURLResponseから、GitHubRequestが保持する連想型Responseを組み立てる
+    func response(from data: Data, urlResponse: URLResponse) throws -> Response {
+        // 取得したデータをJSONに変換  Data型からAny型へ
+        let json = try JSONSerialization.jsonObject(with: data, options: [])
+        
+        if case (200..<300)? = (urlResponse as? HTTPURLResponse)?.statusCode {
+            // JSONからモデルをインスタンス化
+            return try Response(json: json)
+        } else {
+            // JSONからAPIエラーをインスタンス化
+            throw try GitHubAPIError(json: json)
+        }
+        
+    }
+    
 }

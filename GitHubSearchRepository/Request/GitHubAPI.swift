@@ -44,7 +44,7 @@ final class GitHubAPI {
             return .get
         }
         var path: String {
-            return "/search/repositories"
+            return "/search/users"
         }
         var parameters: Any? {
             return ["q" : keyword]
